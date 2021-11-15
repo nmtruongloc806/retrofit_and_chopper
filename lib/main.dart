@@ -1,3 +1,4 @@
+import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:retrofit_and_chopper/api.dart';
@@ -5,8 +6,7 @@ import 'package:retrofit_and_chopper/api_service.dart';
 import 'package:retrofit_and_chopper/app_settings.dart';
 import 'package:dio/dio.dart';
 
-void main() async{
-
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppSettings.innitAppSetting();
 
@@ -37,9 +37,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   late ApiService apiService;
   final Logger logger = Logger();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -64,22 +64,24 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         child: Column(
           children: [
-            ElevatedButton(onPressed: () => callApi("getThongKeVanBanDen"), child: Text("GetThongKeVanBanDenDashboard"))
+            ElevatedButton(
+                onPressed: () => callApi("getThongKeVanBanDen"),
+                child: Text("GetThongKeVanBanDenDashboard"))
           ],
         ),
       ),
     );
   }
 
-  void callApi(String key) async{
+  void callApi(String key) async {
     Dio dio = await Api().getDio();
     apiService = ApiService(dio);
-    switch(key){
+    switch (key) {
       case "getThongKeVanBanDen":
-        var result = await apiService.getThongKeVanBanDen("", 1787, 'tunghoang', 12395, 1);
+        var result = await apiService.getThongKeVanBanDen(
+            "", 1787, 'tunghoang', 12395, 1);
         logger.d(result.toJson().toString());
         break;
     }
   }
-
 }
